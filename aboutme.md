@@ -7,4 +7,4 @@ my name is Christian Wunderlich, i´m working in the tech industry for more than
 
 ### Badges
 
-![Crepe](https://s3-media3.fl.yelpcdn.com/bphoto/cQ1Yoa75m2yUFFbY2xwuqw/348s.jpg){: .mx-auto.d-block :}
+![Badges](chwunder.github.io/assets/img/badges.png){: .mx-auto.d-block :}
