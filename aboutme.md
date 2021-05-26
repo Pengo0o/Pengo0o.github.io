@@ -3,14 +3,7 @@ layout: page
 title: About me
 subtitle: Why you'd want to go on a date with me
 ---
-Chris
-
-My name is Inigo Montoya. I have the following qualities:
-
-- I rock a great mustache
-- I'm extremely loyal to my family
-
-What else do you need?
+my name is Christian Wunderlich, i´m working in the tech industry for more than a decade now with my main focus on Microsoft Endpoint Manager, Modern Device Management and the Azure Cloud. Since two years now i´m working for **Microsoft** as a Senior Customer Engineer.
 
 ### My story
 
