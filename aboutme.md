@@ -7,4 +7,4 @@ my name is Christian Wunderlich, i´m working in the tech industry for more than
 
 ### Badges
 
-![Badges](/assets/img/aboutme/badges.png){: .mx-auto.d-block :}
+![Badges](/assets/img/badges.png){: .mx-auto.d-block :}
