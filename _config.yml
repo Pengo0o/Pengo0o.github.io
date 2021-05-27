@@ -16,10 +16,6 @@ author: Christian Wunderlich
 navbar-links:
   Home: "https://chwunder.github.io/"
   About Me: "aboutme"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
-  Author's home: "https://deanattali.com"
 
 # --- Logo --- #
 
