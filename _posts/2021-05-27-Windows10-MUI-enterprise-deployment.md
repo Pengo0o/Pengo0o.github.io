@@ -2,6 +2,7 @@
 layout: post
 title: Windows 10 Multi-Language Enterprise Deployment
 subtitle: make the deployment of windows 10 languages easy!
+share-description: "Hello Everyone! My name is Christian Wunderlich, Premier Field Engineer (PFE) at Microsoft Germany for Microsoft Endpoint Manager. This blog post will provide you a better understanding on how to manage multilanguage windows 10 deployments. It will focus on how to deal with LXP files and language specific add-ons like Features on Demand! Once you have reached the end of this post, you can combine all those puzzle pieces to build your own multilanguage deployment!"
 thumbnail-img: "/assets/img/blogw10lp/thumb.png"
 tags: [Windows 10, OSD]
 comments: true
