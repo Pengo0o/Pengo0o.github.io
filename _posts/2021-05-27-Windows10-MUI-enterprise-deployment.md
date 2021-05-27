@@ -2,6 +2,7 @@
 layout: post
 title: Windows 10 Multi-Language Enterprise Deployment
 subtitle: make the deployment of windows 10 languages easy!
+thumbnail-img: "/assets/img/blogw10lp/thumb.png"
 tags: [Windows 10, OSD]
 comments: true
 ---
