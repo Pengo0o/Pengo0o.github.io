@@ -2,18 +2,18 @@
 layout: post
 title: O365 – File Format Bug in ConfigMgr
 subtitle: the story continues …
-thumbnail-img: "/assets/img/blogw10lp/thumb.png"
-tags: [Windows 10, OSD]
+thumbnail-img: "/assets/img/20200430/bugfix.jpg"
+tags: [M365, W10, Bug, SCCM, MEMCM, OSD]
 comments: true
 ---
 
 at one of my last customer engagement i saw some client machines which still couldn´t be updated with the last O365 1912 Monthly Channel Targeted Patch. The errors we have seen were actually looking exactly the same as the bug which got identified quite a few weeks back. Also in this case we have seen that ConfigMgr couldn´t download the update due to a wrong url format for the bits job!
 
-![](http://chwunder.de/wp-content/uploads/2020/01/wrongformat-1024x80.png)
+![wrongformat](/assets/img/20200430/wrongformat-1024x80.png)
 
 Microsoft provided a new release of those O365 updates as well as released a fix for clients which do have already a specific version of office installed!
 
-![](https://chwunder.de/wp-content/uploads/2020/01/bugfix.jpg)
+![bugfix](/assets/img/20200430/bugfix.jpg)
 
   
   
