@@ -23,13 +23,13 @@ Starting with Windows 10, version 1809 and Windows Server 2019, Windows has two 
 
 Those FODs include all language resources packaged into just one file. Those FODs are actually distributed as a single cab file. 
 
-![](https://chwunder.de/wp-content/uploads/2020/04/image.png)
+![](/assets/img/blogw10lp/image.png)
 
 #### FODs with satellite packages: 
 
 FODs with satellite packages are language neutral features which have languages and/or architecture resources in separate packages, so called satellites. If you would point your installation to a source containing those language and/or architecture files, only the files which apply to the windows image are installed which reduces the disk footprint. 
 
-![](https://chwunder.de/wp-content/uploads/2020/04/image-3.png)
+![](/assets/img/blogw10lp/image-3.png)
 
 FODs with satellites require a well-formed repository of cab files and metadata for an offline installation. You can´t just copy a few files from the source iso and expect that the installation is successful. Those satellite packages require metadata used during the installation.  
 
@@ -47,7 +47,7 @@ There are a few options you have in order to prepare a repository of FOD files. 
 
 All FODs without a satellite package just need the package.cab file in a folder. Once the file is in that folder, you can just point the installation to this source so it can be installed without further considerations. 
 
-![](https://chwunder.de/wp-content/uploads/2020/04/image-1.png)
+![](/assets/img/blogw10lp/image-1.png)
 
 #### FODs with satellite packages 
 
@@ -57,7 +57,7 @@ If you want to install a specific feature, you need to take the installed la
 
 In this example, my client is a windows 10 1909 which has an en-us base installation with the german and french language pack on top. To install the DHCP RSAT Tool, you have to provide the following files. 
 
-![](https://chwunder.de/wp-content/uploads/2020/04/image-2.png)
+![](/assets/img/blogw10lp/image-2.png)
 
 #### Preparation FODs online 
 
@@ -120,7 +120,7 @@ As already mentioned above, you have the option to apply / install language pack
 
 LP or LIPs can be installed while the OS is being executed with the dism tool. You just need to copy the LP.cab file to the desired location and execute the following installation command. 
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l1.png)
+![](/assets/img/blogw10lp/l1.png)
 
 -   dism /online /add-package /packagepath:”C:\temp\es-es\Microsoft-Windows-Client-Language-Pack_x64_es-es.cab” 
 
@@ -136,7 +136,7 @@ Local experience packages can be applied with the following command: 
 
 -   Add-appxpackage –Path C:\temp\de-de\LanguageExperiencePack.de-DE.Neutral.appx 
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l2.png)
+![](/assets/img/blogw10lp/l2.png)
 
 By using add-appxpackage you are just registering the Application for the current logged-on user.  You can take a look for which user the app is actually registered by running this command. 
 
@@ -152,7 +152,7 @@ After installing the LXP and the creation of a new user account, we can check th
 
 -   Get-AppxPackage -AllUsers | ? Name -Like *LanguageExperiencePack* | Format-List Name, PackageUserInformation
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l3.png)
+![](/assets/img/blogw10lp/l3.png)
 
 So far the process went quite smooth, but unfortunately the newly installed LXP does not yet appear in the list of available windows display languages. It must be added afterwards, a more detailed guide is covered in a later section.
 
@@ -160,11 +160,11 @@ So far the process went quite smooth, but unfortunately the newly installed LXP 
 
 Once you have installed the LP, LIP or LXP, you have to make it available to the user. Unfortunately, this is not yet automated, so even after installing the language, it is not yet automatically available in the list of windows display languages.
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l4.png)
+![](/assets/img/blogw10lp/l4.png)
 
 Now either the user adds the installed language to his preferred list of languages OR you have to do this manually via powershell.
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l5.png)
+![](/assets/img/blogw10lp/l5.png)
 
 > $OSLanguages = (Get-WmiObject -Class Win32_OperatingSystem -Namespace root\CIMV2).MUILanguages
 > 
@@ -224,7 +224,7 @@ This article is more about the deployment of the newer local experience packs wi
 
 In order to do this, you have to use add-appxprovisionedpackage as this command installs but does not register the appx package during the task sequence. This is required as no user is logged-on yet! Furthermore, the System Account is not allowed to run the add-appxpackage command!  
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l6.png)
+![](/assets/img/blogw10lp/l6.png)
 
 This command does pre-provision the appx package to the user, nevertheless this LXP still needs to get registered. To be able to do this, you have to add an additional step (run command line) in the task sequence to add a registry key.
 
@@ -234,19 +234,19 @@ This regkey allows deployment operations (adding, **_registering_**, staging, up
 
 The next step is to register the LXP for a user. To achieve this, we would need to add another step (run powershell script) and run this step as a user (f.e. service account).
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l7.png)
+![](/assets/img/blogw10lp/l7.png)
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l8.png)
+![](/assets/img/blogw10lp/l8.png)
 
 Now, as the app is registered and not anymore in staging status, we can use again f.e. our custom xml file to make this LXP Language as the default language for the current and all new users!
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l9.png)
+![](/assets/img/blogw10lp/l9.png)
 
 Another computer restart at the end will finish off the project to use LXP files and treat them like as regular lp files! You will now have the default language set to your desired one! If you consider to work with task sequence variables, you can do this for a lot more languages!
 
 Just to provide you an overview about my task sequence setup:
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l10.png)
+![](/assets/img/blogw10lp/l10.png)
 
 ### Deployment Tools & Configurations
 
@@ -346,7 +346,7 @@ With this tiny script you can just call the intl.cpl command line tool and provi
 
 This is the content you would need to deploy this.
 
-![](https://chwunder.de/wp-content/uploads/2020/04/l11.png)
+![](/assets/img/blogw10lp/l11.png)
 
 References:
 
