@@ -90,7 +90,7 @@ After checking the compliance of our transmitted data, we can continue to prepar
 
 # Azure Data Explorer
 
-To be able to automatically ingest data from azure event hub, we have to prepare the Azure Data Explorer environment. With this we make sure, than ADX know in which table we want to ingest data as well as it knows which data format our data has. This is a mandatory step to auto ingest data.
+To be able to automatically ingest data from azure event hub, we have to prepare the Azure Data Explorer environment. With this we make sure, that ADX knowx in which table we want to ingest data as well as it knows which data format our data has. This is a mandatory step to auto ingest data.
 
 ## creation of an ADX table
 
