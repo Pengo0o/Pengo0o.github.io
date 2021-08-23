@@ -120,7 +120,7 @@ Kusto attempts optimize throughput by batching small ingress data chunks togethe
 
 The downside of this batching before ingestion, which is the introduction of a forced delay, will cause a delay until data is ready to be queried.
 
-With the ingestionbatching policy, you can confiure parameters which provides the maximum forced delay to allow when batching small blobs together.
+With the ingestionbatching policy, you can configure parameters which provides the maximum forced delay to allow when batching small blobs together.
 
 Batches are sealed when the first condition is met:
 
@@ -128,7 +128,8 @@ Batches are sealed when the first condition is met:
 2. The maximum delay time is reached
 3. The number of blobs set by the IngestionBatching policy is reached
 
-To speed-up the batching and thefore take effect on the ingestion time, i have decided for those settings. This is just for my test environment and not recommended for productive use. 
+To speed-up the batching and thefore take effect on the ingestion time, i have decided for those settings. Batching with this settings happen every 30 secs, or 500 files or 1GB of data. (whatever comes first)<br>
+This is just for my test environment and not recommended for productive use. 
 
 ```
 .alter table TestTable policy ingestionbatching @'{"MaximumBatchingTimeSpan":"00:00:30", "MaximumNumberOfItems": 500, "MaximumRawDataSizeMB": 1024}'
