@@ -131,3 +131,14 @@ Especially take a not of the target table and default routing settings in the lo
 ![](/assets/img/20210820/adxdataconnectioncreatedetail.png)
 
 
+# References
+
+|Link|Description| 
+|---|---|
+|Azure Event Hub|https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-about|
+|Azure Data Explorer|https://docs.microsoft.com/en-us/azure/data-explorer/data-explorer-overview|
+|Azure Event Hub Properties|https://docs.microsoft.com/en-us/dotnet/api/azure.messaging.eventhubs.eventdata.properties?view=azure-dotnet|
+|ADX ingest Data from Azure Event Hub|https://docs.microsoft.com/en-us/azure/data-explorer/ingest-data-event-hub-overview|
+|Python Event Hub Samples| - https://docs.microsoft.com/en-us/azure/data-explorer/ingest-data-event-hub-overview <br> - https://docs.microsoft.com/en-us/samples/azure/azure-sdk-for-python/eventhub-samples/ <br> - https://pypi.org/project/azure-eventhub/|
+
+
