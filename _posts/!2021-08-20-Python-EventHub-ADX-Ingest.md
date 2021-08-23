@@ -7,8 +7,6 @@ tags: [Python, ADX, Azure Event Hub, ingest, pipeline, Azure]
 comments: true
 ---
 
-# !!!!!!!!!!!!!!!!!!!!github account HINZUFÜGEN
-
 Recently i came across a preview feature which allows customers to ingest data automatically into azure data explorer (adx) by using Azure Event Hub.
 As this feature is to the time of this blog post still in preview, i just wanted to know how it works and what the usecase as well as the benefit customers get by using it. 
 Therefore i have used python to send batches of simulated IoT Temprature Sensor Data to Event Hub. This Data i would like to use in ADX to be automatically ingested.
@@ -21,6 +19,7 @@ In this test scenario i have used the following components:
 * Event Hub Namespace & Event Hub Instance (to send and read data from)
 * a storage account to store checkpoint data from the consumer client
 * Azure Data Explorer to ingest Data
+* configuration of a ingestionbatching policy
 
 # Event Hub data transmission
 
@@ -51,7 +50,6 @@ Event Properties in general are used for passing metadata associated with the ev
 ```python
 Event_data.properties = {"Table":"TestTable", "IngestionMappingReference":"TestMapping", "Format":"JSON", "Encoding":"UTF-8"}
 ```
-
 
 Events get send to the Event Hub correctly as this screenhot demonstrates.
 
@@ -116,6 +114,27 @@ Once this table is created, we can have to map the JSON data and values to the a
 
 >For the creation of the mapping as well as the tablename in which data should be ingested, take a note about the custom event properties we send with each event!
 
+## creation of a ingestionbatching policy (optional)
+
+Kusto attempts optimize throughput by batching small ingress data chunks together as they await ingestion. This sort of batching reduces the consumed resources by the ingestion process and doens´t require post-ingestion resources to optimize those small data shards.
+
+The downside of this batching before ingestion, which is the introduction of a forced delay, will cause a delay until data is ready to be queried.
+
+With the ingestionbatching policy, you can confiure parameters which provides the maximum forced delay to allow when batching small blobs together.
+
+Batches are sealed when the first condition is met:
+
+1. The total size of the batched data reaches the size set by the IngestionBatching policy.
+2. The maximum delay time is reached
+3. The number of blobs set by the IngestionBatching policy is reached
+
+To speed-up the batching and thefore take effect on the ingestion time, i have decided for those settings. This is just for my test environment and not recommended for productive use. 
+
+```
+.alter table TestTable policy ingestionbatching @'{"MaximumBatchingTimeSpan":"00:00:30", "MaximumNumberOfItems": 500, "MaximumRawDataSizeMB": 1024}'
+```
+
+To learn more about ingestionbatching policies, please check the references at the end of this post.
 
 ## creation of an adx data connection
 
@@ -139,5 +158,6 @@ Especially take a not of the target table and default routing settings in the lo
 |Azure Event Hub Properties|https://docs.microsoft.com/en-us/dotnet/api/azure.messaging.eventhubs.eventdata.properties?view=azure-dotnet|
 |ADX ingest Data from Azure Event Hub|https://docs.microsoft.com/en-us/azure/data-explorer/ingest-data-event-hub-overview|
 |Python Event Hub Samples| - https://docs.microsoft.com/en-us/azure/data-explorer/ingest-data-event-hub-overview <br> - https://docs.microsoft.com/en-us/samples/azure/azure-sdk-for-python/eventhub-samples/ <br> - https://pypi.org/project/azure-eventhub/|
-
+|Azure Batching Policy|https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/batchingpolicy|
+|GitHub Samples|https://github.com/chwunder/blogsamples/tree/master/20210820_python_eventhub_adx|
 
