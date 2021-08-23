@@ -7,8 +7,7 @@ tags: [Python, ADX, Azure Event Hub, ingest, pipeline, Azure]
 comments: true
 ---
 
-# ### LINKS, GITHUB REFERENCE - MAKE SURE TO INGEST BEFORE COMMIT
-
+# !!!!!!!!!!!!!!!!!!!!github account HINZUFÜGEN
 
 Recently i came across a preview feature which allows customers to ingest data automatically into azure data explorer (adx) by using Azure Event Hub.
 As this feature is to the time of this blog post still in preview, i just wanted to know how it works and what the usecase as well as the benefit customers get by using it. 
