@@ -168,9 +168,10 @@ Especially take a note of the target table and default routing settings in the l
 
 After you have created the data connection and sent some events, Azure Data Explorer should automatically pickup any new events and ingest them automatically into teh defined Table in your ADX. To check if data is being stored correctly, you can simply check this by browsing your table in ADX.
 
-```Kusto
+```KUSTO
 TestTable
 ```
+
 ![](/assets/img/20210820/adxquerydata.png)
 
 If you can see your simulated IoT Sensor Data or any other kind of data your automatic ingestion into ADX using Event Hub works!
