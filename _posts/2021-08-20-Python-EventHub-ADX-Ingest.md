@@ -3,7 +3,7 @@ layout: post
 title: Automatically ingest Event Hub Data to Azure Data Explorer using Python
 subtitle: learned the hard way!
 thumbnail-img: /assets/img/20210820/thumb.png
-cover-img: /assets/img/20210820/banner_resized.png
+cover-img: /assets/img/20210820/banner_resized.jpg
 tags: [Python, ADX, Azure Event Hub, ingest, pipeline, Azure]
 comments: true
 ---
