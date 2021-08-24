@@ -61,6 +61,7 @@ Event Properties in general are used for passing metadata associated with the ev
 ```python
 Event_data.properties = {"Table":"TestTable", "IngestionMappingReference":"TestMapping", "Format":"JSON", "Encoding":"UTF-8"}
 ```
+
 > EventHub Properties are case sensitive! *Table* works, *table* doesn´t!
 
 Events get send to the Event Hub correctly as this screenhot demonstrates.
@@ -120,7 +121,6 @@ Once this table is created, we can have to map the JSON data and values to the a
 ```
 
 ![](/assets/img/20210820/adxcreatemapping.png)
-
 
 >For the creation of the mapping as well as the tablename in which data should be ingested, take a note about the custom event properties we send with each event!
 
