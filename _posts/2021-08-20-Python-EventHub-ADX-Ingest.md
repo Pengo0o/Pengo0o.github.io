@@ -121,7 +121,6 @@ Once this table is created, we can have to map the JSON data and values to the a
 ```kusto
 .create table TestTable ingestion json mapping 'TestMapping' '[{"column":"TimeStamp", "Properties": {"Path": "$.timestamp"}} ,{"column":"Temperature", "Properties": {"Path":"$.temperature"}} ,{"column":"Humidity", "Properties": {"Path":"$.humidity"}} ,{"column":"IoTDevice", "Properties": {"Path":"$.iotdevice"}}]'
 ```
-
 ![](/assets/img/20210820/adxcreatemapping.png)
 
 For the creation of the mapping as well as the tablename in which data should be ingested, take a note about the custom event properties we send with each event!
