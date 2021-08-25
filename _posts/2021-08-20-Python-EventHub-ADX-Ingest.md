@@ -127,7 +127,7 @@ Once this table is created, we can have to map the JSON data and values to the a
 For the creation of the mapping as well as the tablename in which data should be ingested, take a note about the custom event properties we send with each event!
 {: .alert .alert-warning}
 
-## creation of a ingestionbatching policy(optional)
+## creation of a ingestionbatching policy (optional)
 
 Kusto attempts optimize throughput by batching small ingress data chunks together as they await ingestion. This sort of batching reduces the consumed resources by the ingestion process and doesn´t require post-ingestion resources to optimize those small data shards.
 
