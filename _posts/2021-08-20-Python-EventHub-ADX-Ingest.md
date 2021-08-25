@@ -189,7 +189,3 @@ If you can see your simulated IoT Sensor Data or any other kind of data your aut
 |Python Event Hub Samples| - [https://docs.microsoft.com/en-us/azure/data-explorer/ingest-data-event-hub-overview](https://docs.microsoft.com/en-us/azure/data-explorer/ingest-data-event-hub-overview) <br> - [https://docs.microsoft.com/en-us/samples/azure/azure-sdk-for-python/eventhub-samples/](https://docs.microsoft.com/en-us/samples/azure/azure-sdk-for-python/eventhub-samples/) <br> - [https://pypi.org/project/azure-eventhub/](https://pypi.org/project/azure-eventhub/)|
 |Azure Batching Policy|[https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/batchingpolicy](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/management/batchingpolicy)|
 |GitHub Samples|[https://github.com/chwunder/blogsamples/tree/master/20210820_python_eventhub_adx](https://github.com/chwunder/blogsamples/tree/master/20210820_python_eventhub_adx)|
-
-
-
-
