@@ -63,7 +63,7 @@ Event_data.properties = {"Table":"TestTable", "IngestionMappingReference":"TestM
 ```
 
 
-EventHub Properties are case sensitive! *Table* works, *table* doesn´t!
+EventHub Properties are case sensitive! *Table* works, *table* does not!
 {: .alert .alert-warning}
 
 Events get send to the Event Hub correctly as this screenhot demonstrates.
