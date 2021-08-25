@@ -357,6 +357,3 @@ Christian Wunderlich
 PFE
 
 **This post is provided “AS IS” with no warranties, and confers no rights. The solution is not officially supported. Any support provided by Microsoft regarding this solution may be limited. Microsoft does not guarantee the solution will work in all environments and/or scenarios.**
-
-TEST
-{: .alert .alert-warning}
