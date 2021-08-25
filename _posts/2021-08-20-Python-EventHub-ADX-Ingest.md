@@ -9,12 +9,12 @@ tags: [Python, ADX, Azure Event Hub, ingest, pipeline, Azure]
 comments: true
 ---
 
-Recently i came across a feature which allows customers to ingest data automatically into azure data explorer (adx) by using Azure Event Hub.
-As this feature is to the time of this blog post still relatively new, i wanted to find out what benefits customers get by using it as well as how it works. The subtitle of this post mentions *learned the hard way!* and you might ask yourself, what does this mean? Actually during my testing and implementation i have found a bug which PG first needed to fix! I thought it was on me why it didn´t work the way i thought it would, but "luckily" it wasn´t my bad. Even though, bug is fixed and you can start testing the same way i did. I have used python to send batches of simulated IoT Sensor Data to Event Hub. This Data i would like to use in ADX to be automatically ingested.
+Recently I came across a feature which allows customers to ingest data automatically into azure data explorer (adx) by using Azure Event Hub.
+As this feature is to the time of this blog post still relatively new, I wanted to find out what benefits customers get by using it as well as how it works. The subtitle of this post mentions *learned the hard way!* and you might ask yourself, what does this mean? Actually during my testing and implementation I have found a bug which PG first needed to fix! I thought it was on me why it didn´t work the way I thought it would, but "luckily" it wasn´t my bad. Even though, bug is fixed and you can start testing the same way I did. I have used python to send batches of simulated IoT Sensor Data to Event Hub. This Data I would like to use in ADX to be automatically ingested.
 
 # Design
 
-In this test scenario i have used the following components:
+In this test scenario I have used the following components:
 * Python script to send batches of "raw" telemetry data (producer client)
 * Python script to check transmitted values to the event hub (consumer client)
 * Event Hub Namespace & Event Hub Instance (to send and read data from)
@@ -26,7 +26,7 @@ In this test scenario i have used the following components:
 
 ## send data to event hub (producer client)
 
-First, i decided to send a batch of raw sensor data to the event hub. For this particular case i decided to use python.
+First, I decided to send a batch of raw sensor data to the event hub. For this particular case I decided to use python.
 
 
 ```python
@@ -140,7 +140,7 @@ Batches are sealed when the first condition is met:
 2. The maximum delay time is reached
 3. The number of blobs set by the IngestionBatching policy is reached
 
-To speed-up the batching and thefore take effect on the ingestion time, i have decided for those settings. Batching with this settings happen every 30 secs, or 500 files or 1GB of data. (whatever comes first)<br>
+To speed-up the batching and thefore take effect on the ingestion time, I have decided for those settings. Batching with this settings happen every 30 secs, or 500 files or 1GB of data. (whatever comes first)<br>
 This is just for my test environment and not recommended for productive use. 
 
 ```
@@ -151,8 +151,8 @@ To learn more about ingestionbatching policies, please check the references at t
 
 ## creation of a user assigned managed identity
 
-In the beginning of this blogpost i have mentioned that i have encountered a bug while working with the event hub ingestion. This bug was related to the system-assinged as well as user-assigned managed identities. In simple words, i was unable to ingest data when a system-managed identity was used! Meanwhile Microsoft has fixed this issue and you can use a user-assigned managed identity to do the authorization. Microsoft is working on the fix for the system-assigned managed identity as well. I will keep this post up-to-date to reflect the current state!
-In this test scenario i have used a user assigned managed identity as Microsoft is still working on a fix.
+In the beginning of this blogpost I have mentioned that I have encountered a bug while working with the event hub ingestion. This bug was related to the system-assinged as well as user-assigned managed identities. In simple words, I was unable to ingest data when a system-managed identity was used! Meanwhile Microsoft has fixed this issue and you can use a user-assigned managed identity to do the authorization. Microsoft is working on the fix for the system-assigned managed identity as well. I will keep this post up-to-date to reflect the current state!
+In this test scenario I have used a user assigned managed identity as Microsoft is still working on a fix.
 
 ## creation of an adx data connection
 
