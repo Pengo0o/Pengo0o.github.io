@@ -47,6 +47,7 @@ h1, h2, h3, h4 {
 }
 a {
   color: {{ site.link-col | default: "#008AFF" }};
+  word-break: break-all;
 }
 a:hover,
 a:focus {
