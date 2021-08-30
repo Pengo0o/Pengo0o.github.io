@@ -64,10 +64,10 @@ TSI instances are usually uniquely identified by deviceID or assetID, which are 
 
 Remember from the previous blogpost, my simulation is sending those information:
 
-'''python
-{ body: '{"timestamp": "2021-08-20 23:36:22.937446", "temperature": 27.4, "humidity": 47.64, **"iotdevice": "device1"**}', properties: {'Table': 'TestTable', 'IngestionMappingReference': 'TestMapping', 'Format': 'json'} }<br>
-{ body: '{"timestamp": "2021-08-20 23:02:53.748482", "temperature": 13.0, "humidity": 50.0, **"iotdevice": "device2"**}', properties: {'Table': 'TestTable', 'IngestionMappingReference': 'TestMapping', 'Format': 'json'} }
-'''
+```json
+{ body: '{"timestamp": "2021-08-20 23:36:22.937446", "temperature": 27.4, "humidity": 47.64, "iotdevice": "device1"}', properties: {'Table': 'TestTable', 'IngestionMappingReference': 'TestMapping', 'Format': 'json'} }<br>
+{ body: '{"timestamp": "2021-08-20 23:02:53.748482", "temperature": 13.0, "humidity": 50.0, "iotdevice": "device2"}', properties: {'Table': 'TestTable', 'IngestionMappingReference': 'TestMapping', 'Format': 'json'} }
+```
 
 As I have set *iotdevice* as my Time Series ID, each IoT Device like *device0, device1, device2, ...* is a unique instance and therefore available in TSI.
 
@@ -130,6 +130,44 @@ Once assigned, your data model will be applied accordingly!
 
 ## Time Series Model types
 
+Now as we have ordered our sensor data, remember we are still looking at raw non-transformed data. Types are used to computate data and add relations between different data to gain insights!
+
+As types are quite complex and offer a lot of different methods for calculations, I would like to encourage you to take a look on the offical docs [Time Series Insights Types](https://docs.microsoft.com/en-us/rest/api/time-series-insights/dataaccessgen2/time-series-types/execute-batch#definitions).
+
+In my case i would like to categorize the temperature in three zones based on its value!
+
+- green (<= 20)
+- yellow (> 20 but <= 30)
+- red (> 30)
+
+Furthermore i still want to see the collected values for temperature and humidity.
+
+Start by creating a new type and give it a name as well as a short description.
+
+![](/assets/img/20210830/createtypezonenamedesc.png)
+
+In the next step, we create variables. Variables are something you can render on the timechart! If you had previously used the default type which for device0 as an example, you could choose to display temperature as well as humidity data on the chart. Once you create a new type only with our zone model, you can´t display the collected data for temperature as well as humidity anymore. Therefore we create those non-computated variables as well to still be able to display the raw data.
+
+![](/assets/img/20210830/tsiinstancetempzoneraw.png)
+
+Do the same for the humidity data as well.
+
+Next is to create as an example the temeprature zones shown above! Create a new variable, give it the name *TempZone* and select Kind *Categorial*. If we would have just raw values read from the sensor like 1,2,3 - we could simply provide the values and specify a appropriate color. In our case, we would like to do something a bit more complex to assign temp ranges, therefore switch for the value configuration to "custom" and provide use something like this.
+
+```kusto
+iff(tolong($event.temperature.Double) <= 30, iff(tolong($event.temperature.Double) <= 20, 'cold', 'normal'), iff(tolong($event.temperature.Double) > 30, 'hot', 'normal'))
+```
+
+![](/assets/img/20210830/typecreation1.png)
+![](/assets/img/20210830/typecreation2.png)
+
+Last but not least, let´s change the Type for device1 from *DefaultType* to the one we have created earlier.
+
+![](/assets/img/20210830/tsiinstancechangetype.png)
+
+once applied, you are now able to not only present our newly created variable, but also the "default" ones.
+
+![](/assets/img/20210830/presentvariables.png)
 
 
 
@@ -139,7 +177,3 @@ Once assigned, your data model will be applied accordingly!
 |Azure Time Series instances|[https://docs.microsoft.com/en-us/azure/time-series-insights/concepts-model-overview#time-series-model-instances](https://docs.microsoft.com/en-us/azure/time-series-insights/concepts-model-overview#time-series-model-instances)|
 |Azure Time Series hierarchies|[https://docs.microsoft.com/en-us/azure/time-series-insights/concepts-model-overview#time-series-model-hierarchies](https://docs.microsoft.com/en-us/azure/time-series-insights/concepts-model-overview#time-series-model-hierarchies)|
 |Azure Time Series Types|[https://docs.microsoft.com/en-us/rest/api/time-series-insights/dataaccessgen2/time-series-types/execute-batch#definitions](https://docs.microsoft.com/en-us/rest/api/time-series-insights/dataaccessgen2/time-series-types/execute-batch#definitions)|
-
-
-TempHumSensorLivingRoom
-Living Room Temperature and Humidity Sensor
