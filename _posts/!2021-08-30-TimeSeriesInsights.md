@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Time Series Insights - Event Hub Data Source
-subtitle: exploration, usage, 
-thumbnail-img: /assets/img/20210820/thumb.png
+title: Insights to Time Series Insights
+subtitle: a look at REST API bulk edit capabilities! 
+thumbnail-img: /assets/img/20210830/thumb.png
 cover-img: /assets/img/20210830/banner.png
 share-img: /assets/img/20210830/banner.png
-tags: [Python, ADX, Azure Event Hub, ingest, pipeline, Azure]
+tags: [Azure, Time Series Insights, TSI, REST API]
 comments: true
 ---
 
