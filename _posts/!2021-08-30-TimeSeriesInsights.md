@@ -3,8 +3,8 @@ layout: post
 title: Time Series Insights - Event Hub Data Source
 subtitle: exploration, usage, 
 thumbnail-img: /assets/img/20210820/thumb.png
-cover-img: /assets/img/20210820/banner.png
-share-img: /assets/img/20210820/banner.png
+cover-img: /assets/img/20210830/banner.png
+share-img: /assets/img/20210830/banner.png
 tags: [Python, ADX, Azure Event Hub, ingest, pipeline, Azure]
 comments: true
 ---
@@ -299,6 +299,52 @@ and simply coping the JSON object in the request body. You simply need to change
 As you see, this was way faster and way less effort to create / dupilcate a data type!
 
 ![](/assets/img/20210830/tsitypeoverview.png)
+
+# understanding interpolation
+
+Interpolation is a method of constructing "missing" data points based on the range of known data points. I know that Azure Time Series Insights could construct such data points. The next quick example should showcase how easy it is to construct those missing data points. Interpolation is configured in the variables of a data type! In my scenario, I use the numeric temperature field to use interpolation. Not every kind of variable can use interpolation. You can check this [microsoft page](https://docs.microsoft.com/en-us/azure/time-series-insights/concepts-variables) to explore which kind can use interpolation.
+
+As an example let´s take a look at my simulated IoT sensor data again. This graph contains all the *data points* available from my raw data! As you can see, each hour in this case, my IoT sensor sent some data to event hub. But like the screenshot shows, at 1pm, the sensor didn´t send anything! The dashed-line represents a missing data point. This is not yet interpolation, TSI just present this differently to let you know something is different at this point!
+
+![](/assets/img/20210830/graphmissingdatapoint.png)
+
+In the raw reading from the sensor you also see this.
+
+![](/assets/img/20210830/graphmissingdatapoint_raw.png)
+
+You can also check the chart data as a table to see the missing sensor data for the given time.
+
+![](/assets/img/20210830/graphmissingdatapoint_table.png)
+
+## turn on interpolation
+
+Now as we have identified the missing data point, let´s turn on interpolation to construct this point. As mentioned above, you can turn on interpolation on the variable of the data type. Take care that it also does not work for every aggregation type. I just updated my temperature variable inside the json object
+
+```JSON
+        "Temperature": {
+          "kind": "numeric",
+          "value": {
+            "tsx": "$event.temperature.Double"
+          },
+          "aggregation": {
+            "tsx": "right($value)"
+          },
+          "interpolation": {
+            "kind": "linear",
+            "boundary": {
+              "span": "PT1H"
+            }
+          }         
+        },
+```
+The boundary defines the time range from the left or right of the sarch span to be used for interpolation. Therefore you have to change as well the aggregation type to *left* or *right* and define the timespan!
+
+After you set interpolation, you can see that a data point has been created as well as the table view reflect this intervention.
+
+![](/assets/img/20210830/graphinterpolation.png)
+![](/assets/img/20210830/graphinterpolation_table.png)
+
+With this blogpost i just wanted to give you an overview about how to connect your TSI environment to a data source and ajdust settings for bulk operations!
 
 
 
