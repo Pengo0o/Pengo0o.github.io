@@ -222,6 +222,84 @@ To save some time working with postman, you can take the collections from [Jon G
 
 ![](/assets/img/20210830/postmanvariables.png)
 
+Before starting to query all of our data types or instances, please take a look at the *Model API* for TSI in microsofts offical [docs](https://docs.microsoft.com/en-us/rest/api/time-series-insights/reference-model-apis). It will provide you an overview about how it works in general and covers way more than what we do in this blogpost.
+
+Jon used it for browsing and creating resource groups, we have to modify a bit the URL, but the schema itself stays the same. We can use as an example the following URL to retrieve all instances in our environment:
+
+```
+https://5db6f3ba-b7de-49ed-aff4-c16fcad98568.env.timeseries.azure.com/timeseries/instances?api-version=2020-07-31
+```
+
+As you see, this URL contains my TSI environment FQDN, you can get this from the azure Portal when opening the TSI service blade!
+
+![](/assets/img/20210830/tsigetinstances.png)
+
+
+If we just hit send, we should get back a JSON object, containing all of our instances!
+
+```JSON
+{
+    "instances": [
+        {
+            "typeId": "1be09af9-f089-4d6b-9f0b-48018b5f7393",
+            "timeSeriesId": [
+                "device0"
+            ],
+            "name": "TempHumSensorLivingRoom",
+            "description": "Living Room Temperature and Humidity Sensor",
+            "hierarchyIds": [
+                "c9213b88-8ee8-4dd0-b3f1-b6f82cf48294"
+            ],
+            "instanceFields": {
+                "Floor": "Ground Floor",
+                "Room": "Living Room"
+            }
+        },
+        {
+            "typeId": "8e236b26-4853-4257-91cf-a7dc4255d51f",
+            "timeSeriesId": [
+                "device1"
+            ],
+            "name": "TempHumSensorKitchen",
+            "description": "Kitchen temperature and humidity sensor",
+            "hierarchyIds": [
+                "c9213b88-8ee8-4dd0-b3f1-b6f82cf48294"
+            ],
+            "instanceFields": {
+                "Floor": "Ground Floor",
+                "Room": "Kitchen"
+            }
+        }
+    ],
+    "continuationToken": "aXsic2tpcCI6MTAwMCwidGFrZSI6MTAwMCwicmVxdWVzdEhhc2hDb2RlIjoxOTQ3MjUzNzgyLCJlbnZpcm9ubWVudElkIjoiNWRiNmYzYmEtYjdkZS00OWVkLWFmZjQtYzE2ZmNhZDk4NTY4In0="
+}
+```
+
+As you can see in the JSON object above, each instance contains a reference to the typeID, which in fact is our data type we have created earlier in this post manually. To assign the device0 to our Temperature Zone Data Type, I can just do a POST to a different URL and provide a JSON Object as the body! As you can see, in the body, i have just copy & paste the typeID from the Temperature Zone to the instance what I have called *TempHumSensorLivingRoom*.
+
+![](/assets/img/20210830/tsipostinstances.png)
+
+In fact, for all of the other model APIs, the procedure is the same!
+
+Let´s take a look to create another Data Type with the exakt same variables than before. Makes probably no sense in this case, but i would like to show how easy it is!
+
+In the Azure TSI Explorer, you can get the JSON Object for any existing data type. For this, you can click the JSON icon on the Temperature Zone Type and copy the content.
+
+![](/assets/img/20210830/tsijsonicon.png)
+
+Back in postman, of course to create a new data type, you need a special REST API URL. This time we are using the following:
+
+```
+https://5db6f3ba-b7de-49ed-aff4-c16fcad98568.env.timeseries.azure.com/timeseries/types/$batch?api-version=2020-07-31
+```
+and simply coping the JSON object in the request body. You simply need to change the ID, otherwise you are updaing an existing object and to visualize it better, I have changed the name as well and added a 2 at the end.
+
+![](/assets/img/20210830/tsiposttype.png)
+
+As you see, this was way faster and way less effort to create / dupilcate a data type!
+
+![](/assets/img/20210830/tsitypeoverview.png)
+
 
 
 |Link|Description| 
