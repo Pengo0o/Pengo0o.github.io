@@ -169,6 +169,59 @@ once applied, you are now able to not only present our newly created variable, b
 
 ![](/assets/img/20210830/presentvariables.png)
 
+# DATA MODEL SCREENSHOTS; QUESTIONS FROM FORUM, ...
+
+
+# using the REST API to modify the data model
+
+Except of modeling data in the portal, there are plenty of other ways to do this. If you are dealing with big data than this would be the recommended way as you are facing probably thousands of different instances. Getting them sorted, creating hierarchies, creating different data types with even more variables will take way to much time and effort doing this in the TSI Explorer.
+
+For this purpose, TSI offers various APIs you can work with. In our case we use the REST API to add, change, remove types and assign them to instances! TSI offers the following APIs:
+
+- Environments APIs
+- Model APIs
+- Query APIs
+- Time Series expression syntax
+- API limits
+
+<br>The *Model API* includes APIs we use in our example like the Instance-, Hierarchy-, or Type API.
+
+Before using those APIs, of course we have to fulfill some prerequisites. For a better visualization, I used *postman* to work with those APIs!
+
+## prerequisites
+
+There are of course plenty ways to authenticate and authorize a service principal, a user, an app to use those APIs, in my case, i have created:
+
+- an AAD application registration
+- set API permissions
+- assigned a Data Access Policy in TSI
+
+<br> Open Azure Active Directory and register a new App registration.
+
+![](/assets/img/20210830/aadappregcreation.png)
+
+Nothing special to take care of, just create a name and copy the values of Application (client) ID and Directory (tenant) ID. In addition, create a secret in *Certificates & secrets* and remember also the secret value! We will need this later for authentication.
+
+Once done, we have to provide necessary API permissions. Please assign the following permission to the created application.
+
+![](/assets/img/20210830/apipermission.png)
+
+Once this is done, last step before using the APIs, we have to assign a data access policy for this application to TSI. 
+
+![](/assets/img/20210830/tsidataaccesspolicy.png)
+
+Depending on what you would like to do with the APIs, you can set Contributor and / or Reader. In my case, i have set both permissions as we are trying to chnage data and environmental settings. Select the application you have created in the previous steps!
+
+If you have done this, you are ready for browsing data through those APIs!
+
+# using the REST API to modify the data model
+
+I would like to showcase you how easy it is to do the same what we did manually by provding a JSON object to the REST API to create a data type, add variables, do calculations and assign the data type to an instance.
+
+To save some time working with postman, you can take the collections from [Jon Gallant](https://blog.jongallant.com/2021/02/azure-rest-apis-postman-2021/) and import it into your postman. He has already provided all the logic and postman variables to get a bearer token and save it later into a variable we can use for authentication while doing some TSI related API calls! The only thing you need to do is to import your data into the variables tab in the collection header and more importantly click save afterwards ;-)
+
+![](/assets/img/20210830/postmanvariables.png)
+
 
 
 |Link|Description| 
