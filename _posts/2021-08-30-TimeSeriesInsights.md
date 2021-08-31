@@ -333,7 +333,7 @@ You can also check the chart data as a table to see the missing sensor data for 
 
 Now as we have identified the missing data point, let´s turn on interpolation to construct this point. As mentioned above, you can turn on interpolation on the variable of the data type. Take care that it does not work for every aggregation type. I just updated my temperature variable inside the json object
 
-```JSON
+```json
         "Temperature": {
           "kind": "numeric",
           "value": {
