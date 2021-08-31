@@ -65,7 +65,7 @@ TSI instances are usually uniquely identified by deviceID or assetID, which are 
 Remember from the previous blogpost, my simulation is sending those information:
 
 ```json
-{ body: '{"timestamp": "2021-08-20 23:36:22.937446", "temperature": 27.4, "humidity": 47.64, "iotdevice": "device1"}', properties: {'Table': 'TestTable', 'IngestionMappingReference': 'TestMapping', 'Format': 'json'} }<br>
+{ body: '{"timestamp": "2021-08-20 23:36:22.937446", "temperature": 27.4, "humidity": 47.64, "iotdevice": "device1"}', properties: {'Table': 'TestTable', 'IngestionMappingReference': 'TestMapping', 'Format': 'json'} }
 { body: '{"timestamp": "2021-08-20 23:02:53.748482", "temperature": 13.0, "humidity": 50.0, "iotdevice": "device2"}', properties: {'Table': 'TestTable', 'IngestionMappingReference': 'TestMapping', 'Format': 'json'} }
 ```
 
@@ -85,7 +85,7 @@ After installing them you might want to build a layout based on your floors and 
         <ul>
             <li>Bathroom
                 <ul>
-                    <li> device0
+                    <li> device0 </li>
                 </ul>
             </li>
             <li> Bedroom
@@ -98,19 +98,22 @@ After installing them you might want to build a layout based on your floors and 
     </li>
     <li>Ground Floor
         <ul>
-        <li>Living Room
-            <ul>
-                <li> device3 </li>
-            </ul>
-        </li>
-        <li> Kitchen
-            <ul>
-                <li> device4</li>
-                <li> ....</li>
-            </ul>
-        </li>
+            <li>Living Room
+                <ul>
+                    <li> device3 </li>
+                </ul>
+            </li>
+            <li> Kitchen
+                <ul>
+                    <li> device4</li>
+                    <li> ....</li>
+                </ul>
+            </li>
+        </ul>
     </li>
 </ul>
+
+
 <br>
 You can create a hierarchy model called House which has the Floor as Level 1 and e.g Room as Level 2:
 
