@@ -243,7 +243,7 @@ As you see, this URL contains my TSI environment FQDN, you can get this from the
 
 If we just hit send, we should get back a JSON object, containing all of our instances!
 
-```JSON
+```json
 {
     "instances": [
         {
