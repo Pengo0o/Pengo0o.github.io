@@ -23,7 +23,7 @@ Of course this post does not use enterprise scale IoT data but to provide a comm
 
 # Azure Time Series Insights Environment
 
-the setup of TSI will not be covered in this post as i assume either your TSI environment is already setup or in case it isn´t please refer to the official documentation: [Setup a TSI Environment using the Portal](https://docs.microsoft.com/en-us/azure/time-series-insights/how-to-create-environment-using-portal)
+The setup of TSI will not be covered in this post as i assume either your TSI environment is already setup or in case it isn´t please refer to the official documentation: [Setup a TSI Environment using the Portal](https://docs.microsoft.com/en-us/azure/time-series-insights/how-to-create-environment-using-portal)
 
 ## selection of the Time Series ID
 
@@ -40,7 +40,7 @@ TSI contains an ingestion engine to collect, process and store streaming time se
 - Azure IoT Hub
 - Azure Event Hub
 
-As my python script in the previous blogpost have used Event Hub to send simulated sensor data, I will connect Event Hub to TSI.
+As my python script in the previous blogpost used Event Hub to sent simulated sensor data to, I will connect Event Hub to TSI.
 
 While creating a time series insights environment, you can create an event source during the setup process or you can skip it and create it later. The screenshot shows how you could configure this at a later point in time.
 
@@ -60,7 +60,7 @@ The Azure TSI Data Model consist of three core components:
 
 ## Time Series Model instances
 
-TSI instances are usually uniquely identified by deviceID or assetID, which are saved as time series IDs. In our case i have used a couple of simulated IoT Devices which are sending sensor data for temperature and humidity. Each simulated IoT device is represented as an instance within TSI.
+TSI instances are usually uniquely identified by deviceID or assetID, which are saved as time series IDs. In our case I have used a couple of simulated IoT Devices which are sending sensor data for temperature and humidity. Each simulated IoT device is represented as an instance within TSI.
 
 Remember from the previous blogpost, my simulation is sending those information:
 
@@ -132,7 +132,7 @@ Once assigned, your data model will be applied accordingly!
 
 Now as we have ordered our sensor data, remember we are still looking at raw non-transformed data. Types are used to computate data and add relations between different data to gain insights!
 
-As types are quite complex and offer a lot of different methods for calculations, I would like to encourage you to take a look on the offical docs [Time Series Insights Types](https://docs.microsoft.com/en-us/rest/api/time-series-insights/dataaccessgen2/time-series-types/execute-batch#definitions).
+As types are quite complex and offer a lot of different methods for calculations, I would like to encourage you to take a look on the official docs [Time Series Insights Types](https://docs.microsoft.com/en-us/rest/api/time-series-insights/dataaccessgen2/time-series-types/execute-batch#definitions).
 
 In my case i would like to categorize the temperature in three zones based on its value!
 
@@ -146,7 +146,7 @@ Start by creating a new type and give it a name as well as a short description.
 
 ![](/assets/img/20210830/createtypezonenamedesc.png)
 
-In the next step, we create variables. Variables are something you can render on the timechart! If you had previously used the default type which for device0 as an example, you could choose to display temperature as well as humidity data on the chart. Once you create a new type only with our zone model, you can´t display the collected data for temperature as well as humidity anymore. Therefore we create those non-computated variables as well to still be able to display the raw data.
+In the next step, we create variables. Variables are something you can render on the timechart! If you had previously used the default type for device0 as an example, you could choose to display temperature as well as humidity data on the chart. Once you create a new type only with our zone model, you can´t display the collected data for temperature as well as humidity anymore. Therefore we create those non-computated variables as well to still be able to display the raw data.
 
 ![](/assets/img/20210830/tsiinstancetempzoneraw.png)
 
@@ -169,12 +169,15 @@ once applied, you are now able to not only present our newly created variable, b
 
 ![](/assets/img/20210830/presentvariables.png)
 
-# DATA MODEL SCREENSHOTS; QUESTIONS FROM FORUM, ...
+furthermore, if we switch back to the analyze tab and check those two variables for events, you can see that it works exactly how we have configured!
 
+![](/assets/img/20210830/graphzones.png)
+
+<br>
 
 # using the REST API to modify the data model
 
-Except of modeling data in the portal, there are plenty of other ways to do this. If you are dealing with big data than this would be the recommended way as you are facing probably thousands of different instances. Getting them sorted, creating hierarchies, creating different data types with even more variables will take way to much time and effort doing this in the TSI Explorer.
+Except of modeling data in the portal, there are plenty of other ways to do this. If you are dealing with big data than this would be the recommended way as you are facing probably thousands of different instances. Getting them sorted, creating hierarchies, creating different data types with even more variables will take way to much time and effort doing this in the TSI Explorer UI.
 
 For this purpose, TSI offers various APIs you can work with. In our case we use the REST API to add, change, remove types and assign them to instances! TSI offers the following APIs:
 
@@ -184,13 +187,13 @@ For this purpose, TSI offers various APIs you can work with. In our case we use 
 - Time Series expression syntax
 - API limits
 
-<br>The *Model API* includes APIs we use in our example like the Instance-, Hierarchy-, or Type API.
+<br>The *Model API* includes APIs I use in my example like the Instance-, Hierarchy-, or Type API.
 
 Before using those APIs, of course we have to fulfill some prerequisites. For a better visualization, I used *postman* to work with those APIs!
 
 ## prerequisites
 
-There are of course plenty ways to authenticate and authorize a service principal, a user, an app to use those APIs, in my case, i have created:
+There are of course plenty ways to authenticate and authorize a service principal, a user, an app to use those APIs. In my case I have created:
 
 - an AAD application registration
 - set API permissions
@@ -200,7 +203,7 @@ There are of course plenty ways to authenticate and authorize a service principa
 
 ![](/assets/img/20210830/aadappregcreation.png)
 
-Nothing special to take care of, just create a name and copy the values of Application (client) ID and Directory (tenant) ID. In addition, create a secret in *Certificates & secrets* and remember also the secret value! We will need this later for authentication.
+Nothing special to take care of, just create a name and copy the values of *Application (client) ID* and *Directory (tenant) ID*. In addition, create a secret in *Certificates & Secrets* and remember also the secret value! We will need this later for authentication.
 
 Once done, we have to provide necessary API permissions. Please assign the following permission to the created application.
 
@@ -210,7 +213,7 @@ Once this is done, last step before using the APIs, we have to assign a data acc
 
 ![](/assets/img/20210830/tsidataaccesspolicy.png)
 
-Depending on what you would like to do with the APIs, you can set Contributor and / or Reader. In my case, i have set both permissions as we are trying to chnage data and environmental settings. Select the application you have created in the previous steps!
+Depending on what you would like to do with the APIs, you can set Contributor and / or Reader. In my case, i have set both permissions as we are trying to change data and environmental settings. Select the application you have created in the previous steps!
 
 If you have done this, you are ready for browsing data through those APIs!
 
@@ -287,18 +290,25 @@ In the Azure TSI Explorer, you can get the JSON Object for any existing data typ
 
 ![](/assets/img/20210830/tsijsonicon.png)
 
-Back in postman, of course to create a new data type, you need a special REST API URL. This time we are using the following:
+To create a new data type you need a special REST API URL. This time we are using the following:
 
 ```
 https://5db6f3ba-b7de-49ed-aff4-c16fcad98568.env.timeseries.azure.com/timeseries/types/$batch?api-version=2020-07-31
 ```
-and simply coping the JSON object in the request body. You simply need to change the ID, otherwise you are updaing an existing object and to visualize it better, I have changed the name as well and added a 2 at the end.
+and simply coping the JSON object in the request body. You need to change the ID, otherwise you are updaing an existing object and to visualize it better, I have changed the name as well and added a 2 at the end.
 
 ![](/assets/img/20210830/tsiposttype.png)
 
 As you see, this was way faster and way less effort to create / dupilcate a data type!
 
 ![](/assets/img/20210830/tsitypeoverview.png)
+
+If you would like to remove an variable from an TSI data type, you can again use the put method to just update your selected data type. Just remove the variable from the request body and call the api as supposed to. This should update the data type accordingly!
+
+In my example, i will remove the *Humidity* variable and send the post command to the api.
+
+![](/assets/img/20210830/removesection.png)
+![](/assets/img/20210830/removesection2.png)
 
 # understanding interpolation
 
@@ -318,7 +328,7 @@ You can also check the chart data as a table to see the missing sensor data for 
 
 ## turn on interpolation
 
-Now as we have identified the missing data point, let´s turn on interpolation to construct this point. As mentioned above, you can turn on interpolation on the variable of the data type. Take care that it also does not work for every aggregation type. I just updated my temperature variable inside the json object
+Now as we have identified the missing data point, let´s turn on interpolation to construct this point. As mentioned above, you can turn on interpolation on the variable of the data type. Take care that it does not work for every aggregation type. I just updated my temperature variable inside the json object
 
 ```JSON
         "Temperature": {
@@ -337,14 +347,14 @@ Now as we have identified the missing data point, let´s turn on interpolation t
           }         
         },
 ```
-The boundary defines the time range from the left or right of the sarch span to be used for interpolation. Therefore you have to change as well the aggregation type to *left* or *right* and define the timespan!
+The boundary defines the time range from the left or right of the search span to be used for interpolation. Therefore you have to change as well the aggregation type to *left* or *right* and define the timespan!
 
-After you set interpolation, you can see that a data point has been created as well as the table view reflect this intervention.
+After you set interpolation, you can see that a data point has been created as well as the table view reflect the intervention.
 
 ![](/assets/img/20210830/graphinterpolation.png)
 ![](/assets/img/20210830/graphinterpolation_table.png)
 
-With this blogpost i just wanted to give you an overview about how to connect your TSI environment to a data source and ajdust settings for bulk operations!
+With this blogpost i just wanted to give you an overview about how to connect your TSI environment to a data source and adjust settings for bulk operations!
 
 
 
