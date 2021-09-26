@@ -9,19 +9,18 @@ tags: [Azure, Time Series Insights, TSI, REST API]
 comments: true
 ---
 
-- Screenshot network isolation nochmal mit DNS private zone machen
-
-
+Fragen:
+- storage account erklären die provisioniert wurden.
 
 Keeping your data secure in the cloud should be one of the most prioritized task of your IT department. Having an ADX cluster in the cloud which processes, stores and analyzes your business critical information should be securely operated.
-Microsoft offers, currently to the time of writing this post, a private preview which allows you to create a private endpoint, a managed private endpoint in the backbone virtual network of your ADX cluster and allowing you to completely turn off the public endpoint of your cluster. 
+Microsoft offers, to the time of writing this post, a private preview which allows you to create a private endpoint, a managed private endpoint in the backbone virtual network of your ADX cluster and allowing you to completely turn off the public endpoint of your cluster. 
 
 Henning was kind enough to enable my subscription for this private preview so I can share my finding with you. This blogpost should provide you with an common understanding how you can use those features making your ADX clusters even more secure!
 
 The final integration of the private endpoint in ADX will probably look like what we know from other services like storage, cosmos db, ... 
 {: .alert .alert-warning}
 
-This private preview is going to be configured differently from what I suspect you will see later in the portal or via CLI. The steps I have to do manually will be all integrated in an dedicated tab in the service! Only the end result will look similar. 
+This private preview is going to be configured differently from what I suspect you will see later in the portal or via CLI. The steps I have to do manually will be all integrated in an dedicated tab in the service!
 
 OK, so lets get started ....
 
@@ -39,17 +38,17 @@ Once your cluster got created, you should see your resource in the portal!
 
 # secure ADX and enable a private endpoint
 
-Like I said in the beginning, your implementation of ADX private endpoint will look differently, the end result will be the same!
+Like I said in the beginning, your implementation of ADX private endpoint will look differently, but the end result will be the same!
 
 ## creating a private endpoint
 
-creating a private endpoint for ADX will create a dedicated network interface for this auzre service in your VNet. This will enable clients / consumers to securely connect to this service. Network traffic between azure services traverses over the vnet and the private link on the Microsoft backbone network, eliminating exposure from the public internet.
+creating a private endpoint for ADX will create a dedicated network interface for this Azure service in your VNet. This will enable clients / consumers to securely connect to this service. Network traffic between azure services traverses over the vnet and the private link on the Microsoft backbone network, eliminating exposure from the public internet.
 
 ![](/assets/img/20210916/peadx.png)
 
 The resource type *Microsoft.Kusto/clusters* is the private preview feature which is not available for you as of now!
 
-![](/assets/img/20210916/peadx2.png)
+<br>![](/assets/img/20210916/peadx2.png)
 
 After all resources got provisioned, you will see those in the portal. In the next screenshot we compare the newly created resources against the resources created when doing network isolation.
 
@@ -63,7 +62,7 @@ Compared to all the resources we get for network isolation, it looks a lot clean
 
 Lets take a closer look at those provisioned resources to understand how those additional resources interconnect to each other and where you can use levers to strengthen the clusters security!
 
-## network interface card
+## network interface card (NIC)
 
 Like with any other private endpoint you will get a dedicated network interface card, bound to the private endpoint of your selected service type. This will ensure that your service will receive a private IP address of the network you have selected. Instead of having just a public endpoint, your service now has already a foot in your network. But this is for sure not the only thing to get all working.
 
@@ -76,17 +75,17 @@ Before using the private preview, in case we wanted to use private links with AD
 
 ![](/assets/img/20210916/dnszonesrg.png)
 
-As you can see, Azure created four private DNS zones for us. The names already reveal what other services are used in the backend. Blob, Table and Queue obviously belong to an azure storage account service. The reason why those are listed there is being discussed later in the blogpost. The other private DNS zone belongs to the actual ADX service itself.
+As you can see, Azure created four private DNS zones for us. The names already reveal what other services are used in the backend. Blob, Table and Queue obviously belong to an azure storage account service. The reason why those are listed, is being discussed later in the blogpost. The other private DNS zone belongs to the actual ADX service itself.
 
-The reason why the private endpoint created those private DNS zones is that you do not change your consumers connection strings to automatically resolve the private IP address of the service.<br>
-First Azure will create a CNAME record in the public DNS zone to redirect the resolution to the private domain name. You can see to which private DNS zones azure will configure the CNAME record.
+The reason why the private endpoint created those private DNS zones is, that you do not need to change your consumers connection strings to automatically resolve the private IP address of the service.<br>
+First Azure will create a CNAME record in the public DNS zone to redirect the resolution to the private domain name. You can see to which private DNS zones Azure will configure the CNAME record.
 [Azure Services DNS zone configuration](https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-dns#azure-services-dns-zone-configuration)
 <br>
 <br>Now your request e.g. adxdemoblog.westeurope.kusto.windows.net resolves to adxdemoblog.privatelink.westeurope.kusto.windows.net
 
 This configuration is going to happen automatically, but now, your provisioned private DNS zones become functional. 
 
-Your consumer / application now tries to query for the private endpoint IP address in azure provided DNS service. Azure DNS will be responsible for DNS resolution of the private DNS zone. You can take a closer look to the private DNS zone for the kusto service in that case.
+Your consumer / application now tries to query for the private endpoint IP address in Azure provided DNS service. Azure DNS will be responsible for DNS resolution of the private DNS zone. You can take a closer look to the private DNS zone for the Kusto service in that case.
 
 ![](/assets/img/20210916/pdnszadx.png)
 
@@ -98,7 +97,7 @@ The private endpoint resource type just does the linking between the NIC address
 
 # Making your ADX more secure
 
-Once the private endpoint is in place, you have enabled to connect securely via the microsoft backbone to the service (ADX) using an internal IP address while keeping the connection strings the same.
+Once the private endpoint is in place, you have enabled your clients to connect securely via the microsoft backbone to the service (ADX) using an internal IP address while keeping the connection strings the same.
 
 ## disabling the public endpoint
 But what about disabling the public endpoint? This will acutally take your security baseline even a step further. Disabling the public endpoint will eliminate another possible attack surface. As of today, the only way to do so is via the REST API.
