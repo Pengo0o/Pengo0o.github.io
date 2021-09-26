@@ -9,23 +9,6 @@ tags: [Azure, Time Series Insights, TSI, REST API]
 comments: true
 ---
 
-
-FRAGEN:
-
-- Create managed private endpoint
-PUT https://management.azure.com/subscriptions/39f0d3e1-bdc1-42b1-b970-0b54d1822a83/resourceGroups/ADXDemo/providers/Microsoft.Kusto/Clusters/adxdemoblog/managedPrivateEndpoints/adxdemoblogmpe?api-version=2021-01-01
-
-{
-    "properties": {
-        "privateLinkResourceId": "/subscriptions/39f0d3e1-bdc1-42b1-b970-0b54d1822a83/resourceGroups/ADXDemo/providers/Microsoft.EventHub/namespaces/adxdemoehns",
-        "groupId": "namespace",
-        "requestMessage": "Please Approve."
-    }
-}
-
-
-
-- die zwei Storagfe Account sind quasi ein cache?
 - Screenshot network isolation nochmal mit DNS private zone machen
 
 
