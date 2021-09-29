@@ -1,7 +1,7 @@
 ---
 layout: post
-title: use a Private Endpoint for your ADX cluster
-subtitle: use private endpoints to secure your cluster
+title: Strenghen your ADX security
+subtitle: using managed private endpoints to enhance security
 thumbnail-img: /assets/img/20210901/thumb.png
 cover-img: /assets/img/20210901/banner.png
 share-img: /assets/img/20210901/banner.png
@@ -9,8 +9,31 @@ tags: [Azure, Time Series Insights, TSI, REST API]
 comments: true
 ---
 
-Fragen:
-- storage account erklären die provisioniert wurden.
+
+Strenghen your ADX security
+using managed private endpoints to enhance security
+
+
+table of content:
+<ul>
+    <li>creation of an ADX cluster</li>
+    <li>secure ADX and enable private endpoint</li>
+        <ul>
+            <li>creating a private endpoint</li>
+        </ul>
+    <li>taking a more closer look at those provisioned resources</li>
+        <ul>
+            <li>network interface card (NIC)</li>
+            <li>private DNS zone</li>
+            <li>private endpoint</li>
+        </ul>
+    <li>making your ADX more secure</li>
+        <ul>
+            <li>disabling the public endpoint</li>
+            <li>managed private endpoint</li>
+            <li>service firewall</li>
+        </ul>
+</ul>
 
 Keeping your data secure in the cloud should be one of the most prioritized task of your IT department. Having an ADX cluster in the cloud which processes, stores and analyzes your business critical information should be securely operated.
 Microsoft offers, to the time of writing this post, a private preview which allows you to create a private endpoint, a managed private endpoint in the backbone virtual network of your ADX cluster and allowing you to completely turn off the public endpoint of your cluster. 
@@ -58,7 +81,7 @@ Compared to all the resources we get for network isolation, it looks a lot clean
 
 ![](/assets/img/20210916/adxcomparenetworkisolation.png)
 
- # taking a more closer look at those provisioned resources
+# taking a more closer look at those provisioned resources
 
 Lets take a closer look at those provisioned resources to understand how those additional resources interconnect to each other and where you can use levers to strengthen the clusters security!
 
@@ -75,7 +98,15 @@ Before using the private preview, in case we wanted to use private links with AD
 
 ![](/assets/img/20210916/dnszonesrg.png)
 
-As you can see, Azure created four private DNS zones for us. The names already reveal what other services are used in the backend. Blob, Table and Queue obviously belong to an azure storage account service. The reason why those are listed, is being discussed later in the blogpost. The other private DNS zone belongs to the actual ADX service itself.
+As you can see, Azure created four private DNS zones for us. The names already reveal what other services are used in the backend. Blob, Table and Queue obviously belong to an azure storage account service. 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Storing data in ADX obviously requires storage in the cloud. Therefore Azure provisions storage accounts in the backend which resources are not visible to you. There is just a hint that those exist if you take a look at the private DNS zones. The reason for having at least two storage accounts in place is just for redundancy.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ The other private DNS zone belongs to the actual ADX service itself.
 
 The reason why the private endpoint created those private DNS zones is, that you do not need to change your consumers connection strings to automatically resolve the private IP address of the service.<br>
 First Azure will create a CNAME record in the public DNS zone to redirect the resolution to the private domain name. You can see to which private DNS zones Azure will configure the CNAME record.
@@ -159,6 +190,17 @@ Antother step towards a more secure connection is done. Last step in this case i
 ![](/assets/img/20210916/approvemanagedprivateendpoint.png)
 
 If you wanna read more about managed virtual networks as well as managed private endpoints, Azure Data Factory already uses this kind of concept. To learn more, you can use this [link](https://docs.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint).
+
+## service firewall
+
+In case you are pulling data from an event hub source or any other source ADX supports, you can leverage the additional security feature of the service firewall and only allow the access from known subnets! This will work independend of the implementation of a managed private endpoint for ADX access.
+
+If you further have a private endpoint provisioned in the same subnet, you can still access your Event Hub resource.
+
+With this additional security border in place, you have secured your ADX components as best as you can with just very little effort.
+
+
+
 
 |Link|Description| 
 |---|---|
