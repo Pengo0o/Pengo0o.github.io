@@ -2,15 +2,12 @@
 layout: post
 title: Strenghen your ADX security
 subtitle: using managed private endpoints to enhance security
-thumbnail-img: /assets/img/20210901/thumb.png
-cover-img: /assets/img/20210901/banner.png
-share-img: /assets/img/20210901/banner.png
-tags: [Azure, Time Series Insights, TSI, REST API]
+thumbnail-img: /assets/img/20210916/privateendpointoverview.png
+cover-img: /assets/img/20210916/privateendpointoverview.png
+share-img: /assets/img/20210916/privateendpointoverview.png
+tags: [Azure, ADX, TSI, REST API, Security, Private Endpoint, Managed Private Endpoint]
 comments: true
 ---
-
-
-ADX (Data management voraggregiert und evtl. gestaged(), engine) --> subnetgröße
 
 table of content:
 <ul>
@@ -57,7 +54,7 @@ There are two different concepts for an ADX implementation (_Vnet injection vs. 
 
 ## vnet injection
 
-the default deployment of Azure Data Explorer is a fully managed service on Azure. vnet injection instead decouples the networking part from the managed service and injects all ADX related resources within your customer subscription which ultimately provides you a few more options compared to the default deplyoment method:
+the default deployment of Azure Data Explorer is a fully managed service on Azure. Vnet injection instead decouples the networking part from the managed service and injects all ADX related resources within your customer subscription which ultimately provides you a few more options compared to the default deplyoment method:
 
 - Resources within the virtual network can communicate with each other privately, through private IP addresses.
 - on-premises resources can access resources in a virtual network using private IP addresses over a S2S or ExpressRoute
@@ -133,13 +130,8 @@ Before using the private preview, in case we wanted to use private links with AD
 
 As you can see, Azure created four private DNS zones for us. The names already reveal what other services are used in the backend. Blob, Table and Queue obviously belong to an azure storage account service. 
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-Storing data in ADX obviously requires storage in the cloud. Therefore Azure provisions storage accounts in the backend which resources are not visible to you. There is just a hint that those exist if you take a look at the private DNS zones. The reason for having at least two storage accounts in place is just for redundancy.
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
- The other private DNS zone belongs to the actual ADX service itself.
+Storing data in ADX obviously requires storage in the cloud. Therefore Azure provisions storage accounts in the backend which resources are not visible to you. There is just a hint that those exist if you take a look at the private DNS zones. 
+The other private DNS zone belongs to the actual ADX service itself.
 
 The reason why the private endpoint created those private DNS zones is, that you do not need to change your consumers connection strings to automatically resolve the private IP address of the service.<br>
 First Azure will create a CNAME record in the public DNS zone to redirect the resolution to the private domain name. You can see to which private DNS zones Azure will configure the CNAME record.
@@ -231,9 +223,6 @@ In case you are pulling data from an event hub source or any other source ADX su
 If you further have a private endpoint provisioned in the same subnet, you can still access your Event Hub resource.
 
 With this additional security border in place, you have secured your ADX components as best as you can with just very little effort.
-
-
-
 
 |Link|Description| 
 |---|---|
