@@ -10,12 +10,16 @@ comments: true
 ---
 
 
-Strenghen your ADX security
-using managed private endpoints to enhance security
-
+ADX (Data management voraggregiert und evtl. gestaged(), engine) --> subnetgröße
 
 table of content:
 <ul>
+    <li>distinction of different concepts</li>
+        <ul>
+            <li>vnet injection</li>
+            <li>private endpoint</li>
+            <li>managed private endpoint</li>
+        </ul>
     <li>creation of an ADX cluster</li>
     <li>secure ADX and enable private endpoint</li>
         <ul>
@@ -46,6 +50,35 @@ The final integration of the private endpoint in ADX will probably look like wha
 This private preview is going to be configured differently from what I suspect you will see later in the portal or via CLI. The steps I have to do manually will be all integrated in an dedicated tab in the service!
 
 OK, so lets get started ....
+
+# distinction of different concepts
+
+There are two different concepts for an ADX implementation (_Vnet injection vs. managed private endpoints_) which at the first glance seems to be almost similar, but they are not. To better understand the different concept, lets highlight some of the differences.
+
+## vnet injection
+
+the default deployment of Azure Data Explorer is a fully managed service on Azure. vnet injection instead decouples the networking part from the managed service and injects all ADX related resources within your customer subscription which ultimately provides you a few more options compared to the default deplyoment method:
+
+- Resources within the virtual network can communicate with each other privately, through private IP addresses.
+- on-premises resources can access resources in a virtual network using private IP addresses over a S2S or ExpressRoute
+- ADX requires a dedicated subnet for the injection, which can just be used for this.
+- You can decide and configure specific configurations
+
+![](/assets/img/20210916/vnetinjectionoverview.png) 
+
+## private endpoint
+
+A private endpoint creates a network interface that uses a private IP from your subnet. This network interface connects you privately and securely to a service powered by Azure Private Link. A private endpoint brings the service into your virtual network.
+
+![](/assets/img/20210916/privateendpointoverview_notmanaged.png) 
+
+## managed private endpoint
+
+the concept of a managed private endpoint (this is part of the preview) is slightly different. Managed private endpoints are private endpoints created in a managed virtual network associated with your Azure Data Explorer Cluster. Managed private endpoints establish a private link to Azure resources. When you use managed private endpoints, traffic between your Azure Data Explorer Cluster and other Azure resources traveres entirely over the Microsoft backbone network, without leveraging public endpoints. Private endpoints can be created for example for IoT Hub, Event Hub, ... resources.
+
+With the managed private endpoint a private endpoint of a blob storage (see screenshot, it is just an example) will be created within the backend ADX Vnet which allows ADX to communicate directly and securely with the blob storage using private ip addresses. If we compare this to the concept with a regular private endpoint, the difference is that the later option is talking to eventhub, iothub, blobstorage and other related resources via the public endpoint.
+
+![](/assets/img/20210916/privateendpointoverview.png) 
 
 # creation of an ADX cluster
 
