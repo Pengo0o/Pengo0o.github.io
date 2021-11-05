@@ -3,8 +3,8 @@ layout: post
 title: Strenghen your ADX security
 subtitle: using managed private endpoints to enhance security
 thumbnail-img: /assets/img/20210916/privateendpointoverview.png
-cover-img: /assets/img/20210916/privateendpointoverview.png
-share-img: /assets/img/20210916/privateendpointoverview.png
+cover-img: /assets/img/20210916/banner.png
+share-img: /assets/img/20210916/banner.png
 tags: [Azure, ADX, TSI, REST API, Security, Private Endpoint, Managed Private Endpoint]
 comments: true
 ---
