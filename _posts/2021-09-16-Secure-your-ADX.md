@@ -9,7 +9,7 @@ tags: [Azure, ADX, TSI, REST API, Security, Private Endpoint, Managed Private En
 comments: true
 ---
 
-table of content:
+# table of content
 <ul>
     <li>distinction of different concepts</li>
         <ul>
