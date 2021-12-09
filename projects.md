@@ -9,4 +9,4 @@ subtitle:
 |   |   |   |   |
 |   |   |   |   |
 
-[Link to page]({{site.baseurl}}/aboutme.md)
+[Link to page]({{site.baseurl}}/aboutme)
