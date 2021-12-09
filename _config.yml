@@ -15,7 +15,7 @@ author: Christian Wunderlich
 
 navbar-links:
   Home: "https://chwunder.github.io/"
-  Projects: "projects"
+  #Projects: "projects"
   About Me: "aboutme"
 
 # --- Logo --- #
