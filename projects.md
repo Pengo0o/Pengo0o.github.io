@@ -5,8 +5,6 @@ subtitle:
 ---
 |Project Sector|Technology|Description|Duration|
 |---|---|---|---|
-| Automotive  | Azure Data Explorer | Azure Data Explorer (ADX) got implemented to  |   |
+| Automotive  | Azure Data Explorer | [Anomaly Detection & Machine Learning]({{site.baseurl}}/projects/AzureDataExplorer) |  still ongoing |
 |   |   |   |   |
 |   |   |   |   |
-
-[Link to page]({{site.baseurl}}/aboutme)
