@@ -5,7 +5,7 @@ subtitle: Introduction of France Buildings
 cover-img: /assets/img/franceflag.png
 thumbnail-img: /assets/img/tower1.jpg
 share-img: /assets/img/franceflag.png
-tags: [books, test]
+tags: [books, buildings]
 ---
 
 # Buildings
