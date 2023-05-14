@@ -2,9 +2,9 @@
 layout: post
 title: France Culture
 subtitle: Introduction of France Culture
-cover-img: /assets/img/Hofstede.jpg
+cover-img: /assets/img/franceflag.jpg
 thumbnail-img: /assets/img/Hofstede.jpg
-share-img: /assets/img/Hofstede.jpg
+share-img: /assets/img/franceflag.jpg
 tags: [books, test]
 ---
 
