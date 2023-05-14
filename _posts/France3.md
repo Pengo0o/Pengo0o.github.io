@@ -1,0 +1,24 @@
+---
+layout: post
+title: France Food
+subtitle: Introduction of France Buildings
+cover-img: /assets/img/franceflag.png
+thumbnail-img: /assets/img/makalon.jpg
+share-img: /assets/img/franceflag.png
+tags: [books, test]
+---
+
+# Food 
+
+French cuisine includes Macaron, baguette, croissant, and foie gras.
+
+Macaron is a French dessert made with egg whites, almond flour, granulated sugar and icing sugar, usually with a filling such as fruit jam or cream sandwiched between two cookies.It is one of the most regional delicacies of the Viena province in western France.
+![macaron](/assets/makalon.jpg){: .mx-auto.d-block :}
+
+Baguette is one of the famous breads in France.
+Croissant is one of the famous pastries in France.
+![bread](/assets/bread.jpg){: .mx-auto.d-block :}
+"French foie gras” is a delicate liver sauce.
+![goose](/assets/goose.png){: .mx-auto.d-block :}
+
+French cuisine plays an important role in the lives of the French people, not only as a cultural expression, but also as an integral part of social and family life. French people often gather together to share food, taste wine, and exchange ideas. Furthermore, French cuisine is highly regarded for its quality and tradition, reflecting a deep respect and love for food. French cuisine also has an important impact on the economy and tourism industry, driving the development of the food and beverage industry and tourism. Therefore, France has become one of the global capitals of gastronomy.
