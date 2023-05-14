@@ -31,7 +31,7 @@ tags: [books, test]
 ### Shake hands
 
 The most common way to greet people in France is to shake hands. Generally it is the woman to the man first hand, the elderly to the young first hand, the superior to the subordinate first hand
-![sk](assets/img/shakehands.jpg)
+![sk](/assets/img/shakehands.jpg)
 
 ### kiss
 
@@ -51,4 +51,4 @@ French people love flowers, life can not be without flowers, especially visiting
 
 French people always treat their friends at home to show their sincerity.
 Guests should be fifteen to thirty minutes late. It is a sign of respect to the host. Do not arrive so early that you catch them off guard. Everyone had a chance to talk at the meal.
-![gifts](assets/img/gifts.jpg)
+![gifts](/assets/img/gifts.jpg)
