@@ -10,10 +10,10 @@
 ############################
 
 # Name of website
-title: My Website
+title: Getting closer to France.
 
 # Your name to show in the footer
-author: Some Person
+author: Peng0v0
 
 ###############################################
 # --- List of links in the navigation bar --- #
@@ -22,9 +22,9 @@ author: Some Person
 navbar-links:
   About Me: "aboutme"
   Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
-  Author's home: "https://deanattali.com"
+    - Peng0v0: "https://www.luogu.com.cn/user/757018"
+  # - Learn markdown: "！https://www.markdowntutorial.com/"
+  # Author's home: "！https://deanattali.com"
 
 ################
 # --- Logo --- #
