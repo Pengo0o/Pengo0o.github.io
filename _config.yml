@@ -51,11 +51,11 @@ round-avatar: true
 social-network-links:
   email: "someone@example.com"
   rss: true  # remove this line if you don't want to show an RSS link at the bottom
-  facebook: 404
-  github: 404
-  twitter: 404
-  patreon: 404
-  youtube: 404
+  facebook: "https://pengo0o.github.io/404/"
+  github: "https://pengo0o.github.io/404/"
+  twitter: "https://pengo0o.github.io/404/"
+  patreon: "https://pengo0o.github.io/404/"
+  youtube: "https://pengo0o.github.io/404/"
 #  medium: yourname
 #  reddit: yourname
 #  linkedin: daattali
